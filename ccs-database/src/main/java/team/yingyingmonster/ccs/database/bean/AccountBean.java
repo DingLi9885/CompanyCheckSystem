@@ -17,6 +17,7 @@ public class AccountBean {
 
     private String accountName;
     private String accountPassword;
+    private String accountRole; //用户角色 2018-10-31 新增
 
     private Integer accountState;
 

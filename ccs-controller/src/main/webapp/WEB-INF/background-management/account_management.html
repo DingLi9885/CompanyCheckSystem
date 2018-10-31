@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="zh-CN">
 <html>
     <head>
         <meta charset="utf-8">
@@ -14,7 +15,7 @@
         <link rel="stylesheet" href="./css/x-admin.css" media="all">
         <link rel="stylesheet" href="css/pag.css" media="all">        
     </head>
-    <body>
+    <body ng-app="ngApp">
         <div class="x-nav">
             <span class="layui-breadcrumb">
               <a><cite>首页</cite></a>
@@ -58,7 +59,7 @@
     </ul>
     <span class="x-right" style="line-height:25px">共有数据：88 条</span></xblock>
   </div>
-            <table class="tablelist">
+            <table class="tablelist" ng-controller="accountListController" ng-repeat="accountbean in accountList">
                 <thead>
                     <tr>
                         <th>
@@ -92,16 +93,16 @@
                             <input type="checkbox" value="1" name="selected">
                         </td>
                         <td>
-                            1
+                            {{accountbean.accountId}}
                         </td>
-                        <td><u style="cursor:pointer" onclick="user_management_show('宋加加','user_management_show.html','10001','360','400')">求大神</u></td>
+                        <td><u style="cursor:pointer" onclick="user_management_show('宋加加','user_management_show.html','10001','360','400')">{{accountbean.accountName}}</u></td>
                         <td >
-                        123456</td>
+                        {{accountbean.accountPassword}}</td>
                         <td >
-                            用户</td>
+                            {{accountbean.accountRole}}</td>
 
                         <td>
-                            2015-07-13 13:13:32
+                            {{accountbean.registerDate}}
                         </td>
                         <td class="td-status">
                             <button class="sp">已启用</button>
@@ -139,6 +140,29 @@
         <script src="./js/x-layui.js" charset="utf-8"></script> 
 <script src="js/jquery2.js" charset="utf-8"></script> 
 <script src="js/js.js" charset="utf-8"></script>
+        <script>
+            //创建angularjs模块
+            let ngApp = angular.module('ngApp', []);
+            //创建账户列表控制器
+            ngApp.controller('accountListController', function ($scope, $http) {
+                $scope.accountList = [];
+                $http.post("/account-management/account-list-action")
+                    .then(
+                        function success(response) {
+                            $(response.data).each(function (i, v) {
+                                $scope.accountList.push(v);
+                            });
+                            $("#accountListContent").removeClass("d-none");
+                        }, function error(response) {
+                            console.error(response);
+                            toastr.error("账户列表获取失败,可能是网络原因!");
+                        });
+
+                $scope.menuClick = function (button) {
+                    alert(`some button on click!, name is "${button.menuName}", and url is "${button.menuUrl}"`);
+                };
+            });
+        </script>
         <script>
             layui.use(['laydate','element','laypage','layer'], function(){
                 $ = layui.jquery;//jquery
