@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="team.yingyingmonster.ccs.database.mapper.RoleMapper">
+    <resultMap type="team.yingyingmonster.ccs.database.bean.AccountBean" id="roleMap">
+        <id property="roleId" column="ROLEID" />
+        <result property="roleName" column="ROLENAME" />
+    </resultMap>
+</mapper>
