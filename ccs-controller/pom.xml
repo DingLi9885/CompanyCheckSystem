@@ -28,16 +28,6 @@
             <artifactId>ccs-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>team.yingyingmonster</groupId>
-            <artifactId>ccs-controller</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>team.yingyingmonster</groupId>
-            <artifactId>ccs-controller</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>

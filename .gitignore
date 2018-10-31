@@ -1,0 +1,45 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen### Java template
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+.gitignore
+.idea/dataSources.local.xml
+.idea/dataSources/cad73573-db1f-48e4-922d-e9494d077174.xml
+.idea/dataSources/cad73573-db1f-48e4-922d-e9494d077174/
+.idea/workspace.xml
+ccs-controller/src/main/webapp/assets/scripts/i18n/ngLocale/
+ccs-controller/src/test/resources/
+ccs-controller/target/
+ccs-database/target/
+ccs-service/src/main/java/
+ccs-service/target/
+commons/target/
