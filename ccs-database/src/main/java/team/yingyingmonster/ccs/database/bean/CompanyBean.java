@@ -5,10 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Table;
+
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
+@Table(name = "COMPANY_TABLE")
 public class CompanyBean {
     private Long companyId;
     private Long accountId;
@@ -16,5 +19,5 @@ public class CompanyBean {
     private String companyEmail;
     private String companyPhone;
 
-
+    private AccountBean accountByCompanyId;
 }

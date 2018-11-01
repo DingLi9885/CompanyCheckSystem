@@ -1,10 +1,16 @@
 package team.yingyingmonster.ccs.controller.action;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import team.yingyingmonster.ccs.controller.bean.ResultMessage;
+import team.yingyingmonster.ccs.database.bean.AccountBean;
 import team.yingyingmonster.ccs.database.bean.Menu;
+import team.yingyingmonster.ccs.database.bean.MenuBean;
+import team.yingyingmonster.ccs.service.serviceinterface.MenuService;
 
+import javax.servlet.http.HttpSession;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +32,8 @@ public class CommonAction {
                 "门户页面",
                 "后台管理"
             };
+    @Autowired
+    private MenuService menuService;
 
     @RequestMapping("/dummy-menu")
     @ResponseBody
@@ -43,5 +51,19 @@ public class CommonAction {
         }
 
         return menus;
+    }
+
+    @RequestMapping("/get-menu")
+    @ResponseBody
+    public ResultMessage getMenu(HttpSession session) {
+        AccountBean accountBean = (AccountBean) session.getAttribute("login-account");
+        Long roleId;
+        if (accountBean == null)
+            roleId = 0l;
+        else
+            roleId = accountBean.getRoleId();
+
+        List<MenuBean> menuList = menuService.selectAccountMenuByRoleId(roleId);
+        return ResultMessage.createSuccessMessage("获取成功！", menuList);
     }
 }

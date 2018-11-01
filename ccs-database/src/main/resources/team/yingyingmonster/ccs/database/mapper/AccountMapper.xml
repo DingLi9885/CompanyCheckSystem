@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="team.yingyingmonster.ccs.database.mapper.UserMapper">
+    <!-- 用户新增 -->
+    <insert id="accountAdd" parameterType="team.yingyingmonster.ccs.database.bean.AccountBean" >
+        insert into ACCOUNT_TABLE  (accountid,accountname,accountpassword,accountstate,roleid,registerdate) values (DRUGSEQ.nextval,#{accountName,jdbcType=VARCHAR},#{accountPassword,jdbcType=VARCHAR},0,#{roleId,jdbcType=NUMERIC},to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'))
+    </insert>
+
+    <!-- 所有账户信息没有分页，没有查询条件 -->
+    <select id="accountList" resultType="team.yingyingmonster.ccs.database.bean.AccountBean">
+        select * from account_table
+    </select>
+
+    <!-- 用户列表显示 -->
+    <select id="accountList" parameterType="team.yingyingmonster.ccs.database.bean.PageBean"
+            resultMap="accountMap">
+        select * from (select ROWNUM rn,a.* from account_table a,role_table b where a.roleid=b.roleid and a.accountstate=0
+        <if test="null!=registerDate and ''!=registerDate">
+            and a.registerdate&gt;=#{registerDate}
+        </if>
+
+        <if test="null!=accountName and ''!=accountName">
+            and a.accountName like concat(concat('%',#{accountName}),'%')
+        </if>
+        and ROWNUM&lt;=#{prevPageNum}) where rn&gt;=#{nextPageNum}
+    </select>
+    <resultMap type="team.yingyingmonster.ccs.database.bean.AccountBean" id="accountMap">
+        <id property="accountId" column="ACCOUNTID" />
+        <result property="accountName" column="ACCOUNTNAME" />
+
+        <result property="roleId" column="ROLEID" />
+
+
+        <result property="registerDate" column="REGISTERDATE" />
+        <result property="accountstate" column="ACCOUNTSTATE" />
+        <association property="rolebean" column="ROLEID"
+                     javaType="team.yingyingmonster.ccs.database.bean.RoleBean">
+            <id property="roleId" column="ROLEID" />
+            <result property="roleName" column="ROLENAME" />
+        </association>
+
+    </resultMap>
+    <!-- 用户总页数显示，包括模糊查找时 -->
+    <select id="resultPage" parameterType="team.yingyingmonster.ccs.database.bean.PageBean" resultType="Integer">
+        select count(*) from account_table a,role_table b where a.roleid=b.roleid a.accountstate=0
+        <if test="null!=registerDate and ''!=registerDate">
+            and u.entryDate&gt;=#{entrytime}
+        </if>
+
+        <if test="null!=accountName and ''!=accountName">
+            and a.accountName like concat(concat('%',#{accountName}),'%')
+        </if>
+    </select>
+</mapper>

@@ -5,10 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Table;
+
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
+@Table(name = "DOCTOR_TABLE")
 public class DoctorBean {
     private Long doctorId;
     private Long accountId;
@@ -18,5 +21,6 @@ public class DoctorBean {
     private String doctorPhone;
     private String doctorHeader;
 
-
+    private AccountBean accountByAccountId;
+    private DeptBean deptByDeptId;
 }
