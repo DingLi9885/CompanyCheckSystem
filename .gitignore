@@ -32,6 +32,7 @@ gen### Java template
 hs_err_pid*
 
 .gitignore
+.idea/dataSources/
 .idea/dataSources.local.xml
 .idea/dataSources/cad73573-db1f-48e4-922d-e9494d077174.xml
 .idea/dataSources/cad73573-db1f-48e4-922d-e9494d077174/
@@ -40,6 +41,5 @@ ccs-controller/src/main/webapp/assets/scripts/i18n/ngLocale/
 ccs-controller/src/test/resources/
 ccs-controller/target/
 ccs-database/target/
-ccs-service/src/main/java/
 ccs-service/target/
 commons/target/
