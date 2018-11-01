@@ -41,3 +41,5 @@ ccs-controller/target/
 ccs-database/target/
 ccs-service/target/
 commons/target/
+ccs-controller/src/main/webapp/assets/scripts/i18n/ngLocale/
+ccs-controller/src/test/resources/

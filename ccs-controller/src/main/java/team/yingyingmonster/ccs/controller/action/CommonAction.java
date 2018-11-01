@@ -35,6 +35,10 @@ public class CommonAction {
     @Autowired
     private MenuService menuService;
 
+    /**
+     * 获取到假的菜单数据，用于测试。
+     * @return 菜单列表。
+     */
     @RequestMapping("/dummy-menu")
     @ResponseBody
     public List<Menu> dummyMenu() {
@@ -53,6 +57,11 @@ public class CommonAction {
         return menus;
     }
 
+    /**
+     * 根据登入的对象获取菜单列表。
+     * @param session
+     * @return 包含菜单列表的返回值信息对象。
+     */
     @RequestMapping("/get-menu")
     @ResponseBody
     public ResultMessage getMenu(HttpSession session) {
@@ -65,5 +74,19 @@ public class CommonAction {
 
         List<MenuBean> menuList = menuService.selectAccountMenuByRoleId(roleId);
         return ResultMessage.createSuccessMessage("获取成功！", menuList);
+    }
+
+    /**
+     * 获取登入账号的账号信息。
+     * @param session
+     * @return
+     */
+    @RequestMapping("/user-info")
+    @ResponseBody
+    public ResultMessage userInfo(HttpSession session) {
+        AccountBean accountBean = (AccountBean) session.getAttribute("login-account");
+        return accountBean == null?
+                ResultMessage.createErrorMessage("尚未登入！", null):
+                ResultMessage.createSuccessMessage("获取成功！", accountBean);
     }
 }

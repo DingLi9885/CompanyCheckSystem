@@ -62,13 +62,19 @@
     // 创建侧边导航栏控制器
     ngApp.controller('leftMenuController', function ($scope, $http) {
         $scope.menuList = [];
-        $http.post("/common/dummy-menu")
+        $http.post("/common/get-menu")
             .then(
                 function success(response) {
-                    $(response.data).each(function (i, v) {
-                        $scope.menuList.push(v);
-                    });
-                    $("#leftMenuContent").removeClass("d-none");
+                    resultMessage = response.data;
+                    if (resultMessage.resultState == 200) {
+                        $(resultMessage.resultData).each(function (i, v) {
+                            $scope.menuList.push(v);
+                        });
+                        $("#leftMenuContent").removeClass("d-none");
+                    } else {
+                        console.error(response);
+                        toastr.error("获取导航栏信息失败,可能是网络原因!");
+                    }
                 }, function error(response) {
                     console.error(response);
                     toastr.error("获取导航栏信息失败,可能是网络原因!");

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="team.yingyingmonster.ccs.database.mapper.MenuMapper">
-    <select id="selectMenuByCondition" parameterType="team.yingyingmonster.ccs.database.bean.MenuBean">
+    <select id="selectMenuByCondition" parameterType="team.yingyingmonster.ccs.database.bean.MenuBean" resultType="team.yingyingmonster.ccs.database.bean.MenuBean">
         select * from MENU_TABLE
         <where>
             <if test="menuId != null">and MENUID=#{menuId}</if>
@@ -11,7 +11,7 @@
             <if test="menuState != null">and MENUSTATE=#{menuState}</if>
         </where>
     </select>
-    <select id="selectAllMenu" parameterType="team.yingyingmonster.ccs.database.bean.MenuBean">
+    <select id="selectAllMenu" parameterType="team.yingyingmonster.ccs.database.bean.MenuBean" resultType="team.yingyingmonster.ccs.database.bean.MenuBean">
         select * from MENU_TABLE
     </select>
 
@@ -19,4 +19,8 @@
         insert into MENU_TABLE(MENUID, MENUNAME, MENUURL, MENUSTATE)
         values (#{menuId}, #{menuName}, #{menuUrl}, #{menuState})
     </insert>
+
+    <update id="updateMenu" parameterType="team.yingyingmonster.ccs.database.bean.MenuBean">
+        update MENU_TABLE set MENUNAME=#{menuName}, MENUSTATE=#{menuState}, MENUURL=#{menuUrl} where MENUID=#{menuId}
+    </update>
 </mapper>
